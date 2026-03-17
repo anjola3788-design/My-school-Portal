@@ -124,6 +124,49 @@
     </div>
 
     <div id="dashboard">
+
+        <div id="project" class="section">
+    <h1>Final Year Research</h1>
+    <div class="glass-card">
+        <h3 style="color:var(--accent)">Topic: Design and Implementation of a Secure Student Portal</h3>
+        <p><strong>Supervisor:</strong> Dr. O. Adeyemi</p>
+        
+        <div style="margin-top:20px;">
+            <p>Overall Progress: 60%</p>
+            <div style="width:100%; background:rgba(255,255,255,0.1); height:10px; border-radius:10px;">
+                <div style="width:60%; background:var(--primary); height:100%; border-radius:10px; box-shadow:0 0 10px var(--primary);"></div>
+            </div>
+        </div>
+
+        <table style="margin-top:30px;">
+            <tr><th>Milestone</th><th>Status</th></tr>
+            <tr><td>Chapter 1: Introduction</td><td><b style="color:#4ade80">Approved</b></td></tr>
+            <tr><td>Chapter 2: Literature Review</td><td><b style="color:#4ade80">Approved</b></td></tr>
+            <tr><td>Chapter 3: Methodology</td><td><b style="color:#4ade80">Approved</b></td></tr>
+            <tr><td>Chapter 4: Implementation</td><td><b style="color:var(--accent)">Under Review</b></td></tr>
+            <tr><td>Chapter 5: Conclusion</td><td><b style="opacity:0.5">Pending</b></td></tr>
+        </table>
+    </div>
+</div>
+
+<div id="clearance" class="section">
+    <h1>Final Year Clearance</h1>
+    <div class="grid-stats">
+        <div class="glass-card" style="border-left:5px solid #4ade80">
+            <h4>Bursary</h4>
+            <p style="color:#4ade80">CLEARED ✅</p>
+        </div>
+        <div class="glass-card" style="border-left:5px solid var(--accent)">
+            <h4>Library</h4>
+            <p style="color:var(--accent)">PENDING ⏳</p>
+        </div>
+        <div class="glass-card" style="border-left:5px solid #f87171">
+            <h4>Department</h4>
+            <p style="color:#f87171">NOT STARTED ❌</p>
+        </div>
+    </div>
+    <p style="margin-top:20px; font-size:0.9rem; opacity:0.7;">Note: You must be cleared by all units to be eligible for Convocation.</p>
+</div>
         <div class="sidebar">
             <h2 style="color:var(--primary)">ElitePanel</h2>
             <div class="nav-item active" onclick="nav('home', this)">🏠 Dashboard</div>
@@ -140,6 +183,11 @@
                     <div class="glass-card"><h3>CGPA</h3><h1 style="color:var(--accent)">4.85</h1><p>Outstanding Scholar</p></div>
                     <div class="glass-card"><h3>Current Level</h3><h1 style="color:var(--primary)">400 L</h1><p>Computer Science</p></div>
                 </div>
+                <div class="main-content">
+    <div id="project" class="section"> ... </div>
+    <div id="clearance" class="section"> ... </div>
+
+</div>
             </div>
 
             <div id="profile" class="section">
@@ -181,6 +229,10 @@
                     </table>
                     <div id="receipt" style="display:none; margin-top:20px; color:#4ade80;">✅ Payment Successful. Receipt #77291 generated.</div>
                 </div>
+                <div class="nav-item" onclick="nav('finance', this)">💳 Payments</div>
+
+<div class="nav-item" onclick="nav('project', this)">🎓 Project Tracker</div>
+<div class="nav-item" onclick="nav('clearance', this)">📜 Graduation Clearance</div>
             </div>
         </div>
     </div>
