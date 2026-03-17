@@ -38,6 +38,52 @@
             .nav-item { padding: 10px 15px; font-size: 13px; margin: 0; }
             .main-content { padding: 20px; }
         }
+        .news-ticker {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid var(--primary);
+    border-radius: 10px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    margin-bottom: 25px;
+    white-space: nowrap;
+}
+
+.ticker-label {
+    background: var(--primary);
+    color: white;
+    padding: 0 15px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 0.75rem;
+    z-index: 2;
+}
+
+.ticker-content {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll-ticker 30s linear infinite;
+}
+
+.ticker-item {
+    display: inline-block;
+    padding: 0 30px;
+    font-size: 0.9rem;
+    color: var(--accent);
+}
+
+@keyframes scroll-ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+/* Pause animation on hover so you can read a specific news item */
+.news-ticker:hover .ticker-content {
+    animation-play-state: paused;
+}
 
         /* Reusable UI */
         .glass-card { background: var(--card); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 25px; backdrop-filter: blur(10px); }
@@ -80,6 +126,15 @@
         </aside>
 
         <main class="main-content">
+            <div class="news-ticker">
+    <div class="ticker-label">DIPLOMATIC PULSE</div>
+    <div class="ticker-content">
+        <span class="ticker-item">🌍 AU Summit: New trade resolutions signed in Addis Ababa...</span>
+        <span class="ticker-item">📜 Nigeria's Foreign Ministry updates policy on ECOWAS mobility...</span>
+        <span class="ticker-item">⚖️ International Court of Justice schedules new hearing on maritime boundaries...</span>
+        <span class="ticker-item">🏛️ UN Security Council discusses regional security in West Africa...</span>
+    </div>
+</div>
             <section id="home" class="section active">
                 <h1>Hello, <span style="color:var(--primary)">Anjola</span> 👋</h1>
                 <p style="opacity:0.6">Session: 2025/2026 | Semester: 1st</p>
