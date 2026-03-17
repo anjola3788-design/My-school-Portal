@@ -73,6 +73,7 @@
             <h2 style="color:var(--accent); margin-bottom: 30px;">ElitePanel</h2>
             <div class="nav-item active" onclick="nav('home', this)">🏠 Home</div>
             <div class="nav-item" onclick="nav('profile', this)">👤 My Profile</div>
+            <div class="nav-item" onclick="nav('courses', this)">📚 Course Load</div>
             <div class="nav-item" onclick="nav('gpa', this)">📊 GPA Tracker</div>
             <div class="nav-item" onclick="nav('pay', this)">💳 Payments</div>
             <button class="logout-btn" onclick="location.reload()" style="margin-top:auto; background:none; border:1px solid #ef4444; color:#ef4444; padding:10px; border-radius:8px; cursor:pointer;">Sign Out</button>
@@ -89,25 +90,48 @@
                 </div>
             </section>
 
-            <section id="profile" class="section">
-                <h1>Academic Profile</h1>
-                <div class="glass-card">
-                    <div style="display:flex; gap:20px; align-items:center; margin-bottom:20px;">
-                        <div style="width:80px; height:80px; border-radius:50%; background:var(--primary); display:flex; align-items:center; justify-content:center; font-size:2rem;">A</div>
-                        <div>
-                            <h3>Anjola</h3>
-                            <p style="opacity:0.7">Computer Science Student</p>
-                        </div>
-                    </div>
-                    <table>
-                        <tr><th>Matric No</th><td>21/27hs/00859</td></tr>
-                        <tr><th>Faculty</th><td>Information Technology</td></tr>
-                        <tr><th>Advisor</th><td>Dr. Benson A.</td></tr>
-                        <tr><th>Phone</th><td>+234 812 XXX XXXX</td></tr>
-                    </table>
-                </div>
-            </section>
+           <section id="profile" class="section">
+    <h1>Academic Profile</h1>
+    <div class="glass-card">
+        <div style="display:flex; gap:20px; align-items:center; margin-bottom:20px;">
+            <div style="width:80px; height:80px; border-radius:50%; background:linear-gradient(45deg, #6366f1, #a855f7); display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:bold;">A</div>
+            <div>
+                <h3>Anjola</h3>
+                <p style="color:var(--accent); font-weight:600;">History & Diplomatic Studies</p>
+                <p style="opacity:0.7; font-size:0.9rem;">Faculty of Arts</p>
+            </div>
+        </div>
+        <table>
+            <tr><th>Matric No</th><td>21/27hs/00859</td></tr>
+            <tr><th>Level</th><td>400 Level (Finalist)</td></tr>
+            <tr><th>Specialization</th><td>International Relations</td></tr>
+            <tr><th>Academic Advisor</th><td>Prof. O. J. Adebayo</td></tr>
+        </table>
+    </div>
+</section>
 
+<section id="courses" class="section">
+    <h1>400L Course Load</h1>
+    <div class="glass-card">
+        <h3 style="margin-bottom:15px; color:var(--accent)">First Semester Registered Courses</h3>
+        <table>
+            <thead>
+                <tr><th>Code</th><th>Course Title</th><th>Units</th><th>Type</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>HDS 401</td><td>Philosophy of History</td><td>3</td><td>Core</td></tr>
+                <tr><td>HDS 403</td><td>International Law & Diplomacy</td><td>3</td><td>Core</td></tr>
+                <tr><td>HDS 405</td><td>History of the Cold War</td><td>3</td><td>Core</td></tr>
+                <tr><td>HDS 407</td><td>Military History of Nigeria</td><td>2</td><td>Elective</td></tr>
+                <tr><td>HDS 411</td><td>Contemporary African Diplomatic Relations</td><td>3</td><td>Core</td></tr>
+                <tr><td>HDS 499</td><td>Research Project (Thesis)</td><td>6</td><td>Core</td></tr>
+            </tbody>
+        </table>
+        <div style="margin-top:20px; padding:10px; border-left:4px solid var(--primary); background:rgba(99,102,241,0.1);">
+            <p style="font-size:0.9rem;"><strong>Total Registered Units:</strong> 20 Units</p>
+        </div>
+    </div>
+</section>
             <section id="gpa" class="section">
                 <h1>Smart GPA Calculator</h1>
                 <div class="glass-card">
