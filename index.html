@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElitePortal | Secure Student Environment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1; /* Indigo */
+            --accent: #f59e0b; /* Amber/Gold */
+            --bg: #0f172a;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-text: #f8fafc;
+            --sidebar: #1e293b;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg: #f1f5f9;
+            --glass: rgba(255, 255, 255, 0.8);
+            --glass-text: #1e293b;
+            --sidebar: #ffffff;
+        }
+
+        body { 
+            font-family: 'Inter', sans-serif; margin: 0; 
+            background: var(--bg); color: var(--glass-text);
+            transition: var(--transition); overflow-x: hidden;
+        }
+
+        /* --- ANIMATED BACKGROUND --- */
+        .bg-animate {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, #0f172a, #1e1b4b, #312e81);
+            z-index: -1; background-size: 400% 400%; animation: gradientMove 15s ease infinite;
+        }
+        @keyframes gradientMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        /* --- LOGIN --- */
+        #login-page { height: 100vh; display: flex; justify-content: center; align-items: center; }
+        .login-card { 
+            background: var(--glass); backdrop-filter: blur(20px);
+            padding: 50px; border-radius: 30px; width: 400px;
+            border: 1px solid rgba(255,255,255,0.1); text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+        input { 
+            width: 100%; padding: 15px; margin: 12px 0; border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2);
+            color: white; outline: none; font-size: 1rem;
+        }
+
+        /* --- DASHBOARD --- */
+        #dashboard { display: none; grid-template-columns: 280px 1fr; min-height: 100vh; }
+        .sidebar { background: var(--sidebar); padding: 30px 20px; border-right: 1px solid rgba(255,255,255,0.1); }
+        .nav-item { 
+            padding: 15px; margin: 10px 0; border-radius: 12px; cursor: pointer;
+            transition: var(--transition); display: flex; align-items: center; gap: 15px;
+        }
+        .nav-item:hover, .nav-item.active { background: var(--primary); color: white; transform: translateX(10px); }
+
+        .main-content { padding: 50px; }
+        .section { display: none; animation: slideUp 0.6s ease; }
+        .section.active { display: block; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- UI COMPONENTS --- */
+        .grid-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+        .glass-card { 
+            background: var(--glass); backdrop-filter: blur(10px);
+            padding: 30px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* --- VIRTUAL ID CARD --- */
+        .id-card {
+            width: 350px; height: 200px; background: linear-gradient(135deg, var(--primary), #4338ca);
+            border-radius: 20px; padding: 20px; position: relative; color: white;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3); margin-top: 20px;
+        }
+        .id-photo { width: 70px; height: 70px; background: #ddd; border-radius: 10px; margin-bottom: 10px; }
+
+        /* --- BUTTONS --- */
+        .btn-glow { 
+            background: var(--primary); color: white; border: none; padding: 15px 30px;
+            border-radius: 12px; cursor: pointer; font-weight: 700; width: 100%;
+            transition: 0.3s; box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+        .btn-glow:hover { transform: scale(1.05); background: #4f46e5; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th { text-align: left; color: var(--accent); padding: 15px; border-bottom: 2px solid var(--glass); }
+        td { padding: 15px; border-bottom: 1px solid var(--glass); }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-animate"></div>
+    <button onclick="toggleTheme()" style="position:fixed; top:20px; right:20px; z-index:100; border-radius:50%; width:50px; height:50px; cursor:pointer;">🌓</button>
+
+    <div id="login-page">
+        <div class="login-card">
+            <h1 style="color:var(--accent); font-weight:800; letter-spacing:-1px;">ELITE PORTAL</h1>
+            <p style="opacity:0.7;">Secure Student Authentication</p>
+            <input type="text" id="userIn" placeholder="Matriculation Number">
+            <input type="password" id="passIn" placeholder="Secret Password">
+            <button class="btn-glow" onclick="validate()">Sign In</button>
+            <p id="error" style="color:#f87171; display:none; margin-top:15px; font-size:0.9rem;">Invalid Credentials. Try again.</p>
+        </div>
+    </div>
+
+    <div id="dashboard">
+        <div class="sidebar">
+            <h2 style="color:var(--primary)">ElitePanel</h2>
+            <div class="nav-item active" onclick="nav('home', this)">🏠 Dashboard</div>
+            <div class="nav-item" onclick="nav('profile', this)">👤 Profile & ID</div>
+            <div class="nav-item" onclick="nav('results', this)">📊 GPA Tracker</div>
+            <div class="nav-item" onclick="nav('finance', this)">💳 Payments</div>
+            <button onclick="location.reload()" style="margin-top:100px; width:100%; padding:10px; border-radius:10px; background:none; border:1px solid #f87171; color:#f87171; cursor:pointer;">Logout</button>
+        </div>
+
+        <div class="main-content">
+            <div id="home" class="section active">
+                <h1 style="font-size:2.5rem;">Welcome, <span style="color:var(--primary)">Anjola</span></h1>
+                <div class="grid-stats">
+                    <div class="glass-card"><h3>CGPA</h3><h1 style="color:var(--accent)">4.85</h1><p>Outstanding Scholar</p></div>
+                    <div class="glass-card"><h3>Current Level</h3><h1 style="color:var(--primary)">400 L</h1><p>Computer Science</p></div>
+                </div>
+            </div>
+
+            <div id="profile" class="section">
+                <h1>Student Identification</h1>
+                <div class="glass-card">
+                    <p><strong>Name:</strong> Anjola</p>
+                    <p><strong>Matric:</strong> 21/27hs/00859</p>
+                    <div class="id-card">
+                        <div class="id-photo"></div>
+                        <div style="font-weight:800; font-size:1.2rem;">ANJOLA</div>
+                        <div style="font-size:0.8rem; opacity:0.9;">21/27hs/00859</div>
+                        <div style="margin-top:15px; font-size:0.7rem; letter-spacing:2px; color:var(--accent)">VERIFIED STUDENT</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="results" class="section">
+                <h1>Smart GPA Calculator</h1>
+                <div class="glass-card">
+                    <p>Calculate your Semester GPA:</p>
+                    <div id="calculator">
+                        <div style="display:flex; gap:10px; margin-bottom:10px;">
+                            <input type="number" id="units" placeholder="Units (e.g 3)" style="width:100px">
+                            <input type="text" id="grade" placeholder="Grade (A,B,C)" style="width:100px">
+                            <button class="btn-glow" onclick="calcGPA()" style="width:auto">Add Course</button>
+                        </div>
+                        <h3 id="gpaResult">Current GPA: 0.00</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div id="finance" class="section">
+                <h1>Financial Center</h1>
+                <div class="glass-card">
+                    <h3>Pending Invoices</h3>
+                    <table>
+                        <tr><th>Item</th><th>Cost</th><th>Action</th></tr>
+                        <tr id="fee-row"><td>Graduation Fee</td><td>₦50,000</td><td><button onclick="payFee()" class="btn-glow" style="padding:5px 15px">Pay Now</button></td></tr>
+                    </table>
+                    <div id="receipt" style="display:none; margin-top:20px; color:#4ade80;">✅ Payment Successful. Receipt #77291 generated.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function validate() {
+            const u = document.getElementById('userIn').value;
+            const p = document.getElementById('passIn').value;
+            if(u === "21/27hs/00859" && p === "alwarith") {
+                document.getElementById('login-page').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'grid';
+            } else {
+                document.getElementById('error').style.display = 'block';
+            }
+        }
+
+        function nav(id, el) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            el.classList.add('active');
+        }
+
+        function payFee() {
+            if(confirm("Confirm payment of ₦50,000?")) {
+                document.getElementById('fee-row').style.opacity = "0.3";
+                document.getElementById('receipt').style.display = "block";
+            }
+        }
+
+        let totalPoints = 0; let totalUnits = 0;
+        function calcGPA() {
+            const u = parseInt(document.getElementById('units').value);
+            const g = document.getElementById('grade').value.toUpperCase();
+            let p = 0;
+            if(g === 'A') p = 5; else if(g === 'B') p = 4; else if(g === 'C') p = 3;
+            totalPoints += (p * u); totalUnits += u;
+            document.getElementById('gpaResult').innerText = "Current GPA: " + (totalPoints / totalUnits).toFixed(2);
+        }
+
+        function toggleTheme() {
+            document.body.setAttribute('data-theme', document.body.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+        }
+    </script>
+</body>
+</html>
