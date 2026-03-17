@@ -5,116 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ElitePortal | Secure Student Environment</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <style>
     :root {
         --primary: #6366f1;
-        --accent: #f59e0b;
         --bg: #0f172a;
-        --glass: rgba(255, 255, 255, 0.05);
         --sidebar: #1e293b;
-        --transition: all 0.3s ease;
     }
 
-    /* 1. ESSENTIAL MOBILE FIX */
-    * { box-sizing: border-box; }
+    /* Reset for all devices */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     
     body { 
-        font-family: 'Inter', sans-serif; margin: 0; 
-        background: var(--bg); color: #f8fafc;
-        overflow-x: hidden; /* Prevents side-scrolling */
+        font-family: 'Inter', sans-serif; 
+        background: var(--bg); 
+        color: white; 
+        overflow-x: hidden; 
     }
 
-    .bg-animate {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: linear-gradient(45deg, #0f172a, #1e1b4b, #312e81);
-        z-index: -1; background-size: 400% 400%; animation: gradientMove 15s ease infinite;
-    }
-
-    /* 2. RESPONSIVE DASHBOARD LAYOUT */
+    /* Desktop View */
     #dashboard { 
-        display: grid; 
-        grid-template-columns: 280px 1fr; /* Desktop default */
+        display: flex; 
         min-height: 100vh; 
     }
 
-    /* Desktop Sidebar */
     .sidebar { 
+        width: 280px; 
         background: var(--sidebar); 
-        padding: 30px 20px; 
-        border-right: 1px solid rgba(255,255,255,0.1);
-        height: 100vh;
-        position: sticky;
-        top: 0;
+        padding: 20px; 
+        flex-shrink: 0;
     }
 
-    .main-content { padding: 40px; width: 100%; }
+    .main-content { 
+        flex-grow: 1; 
+        padding: 40px; 
+    }
 
-    /* 3. PHONE OPTIMIZATION (Media Query) */
+    .grid-stats { 
+        display: grid; 
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+        gap: 20px; 
+    }
+
+    .glass-card {
+        background: rgba(255,255,255,0.05);
+        padding: 20px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+    }
+
+    /* MOBILE VIEW (Phones) */
     @media (max-width: 768px) {
         #dashboard { 
-            grid-template-columns: 1fr; /* Stack everything vertically */
+            flex-direction: column; /* Stack sidebar and content */
         }
 
         .sidebar { 
-            position: fixed; 
-            bottom: 0; 
-            left: 0; 
             width: 100%; 
-            height: 70px; /* Turn sidebar into a bottom nav bar */
-            display: flex; 
-            justify-content: space-around; 
-            padding: 5px; 
+            height: auto; 
+            padding: 10px;
+            display: flex;
+            overflow-x: auto; /* Let menu scroll sideways on phone */
+            position: sticky;
+            top: 0;
             z-index: 1000;
-            border-right: none;
-            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        .sidebar h2, .sidebar button { display: none; } /* Hide title and logout on mobile nav */
+        .sidebar h2, .sidebar button { display: none; } /* Hide logo & logout on mobile */
 
         .nav-item { 
-            margin: 0; 
-            padding: 10px; 
-            font-size: 12px; 
-            flex-direction: column; 
-            gap: 2px;
-            text-align: center;
+            white-space: nowrap; 
+            padding: 10px 15px; 
+            margin: 0 5px; 
+            font-size: 14px;
         }
 
         .main-content { 
             padding: 20px; 
-            padding-bottom: 90px; /* Space for bottom nav */
         }
 
-        .login-card { width: 90%; padding: 30px; }
+        .login-card { 
+            width: 90%; 
+        }
         
-        .grid-stats { grid-template-columns: 1fr; } /* Cards stack on top of each other */
-
-        .id-card { width: 100%; max-width: 350px; margin: 0 auto; }
+        table { 
+            display: block; 
+            overflow-x: auto; /* Make tables scrollable on small screens */
+        }
     }
+</style>
 
-    /* --- UI ELEMENTS --- */
-    .nav-item { 
-        padding: 15px; margin: 10px 0; border-radius: 12px; cursor: pointer;
-        transition: var(--transition); display: flex; align-items: center; gap: 15px;
-    }
-    .nav-item.active { background: var(--primary); color: white; }
-    
-    .glass-card { 
-        background: var(--glass); backdrop-filter: blur(10px);
-        padding: 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);
-        margin-bottom: 20px;
-    }
-
-    .section { display: none; }
-    .section.active { display: block; animation: fadeIn 0.5s ease; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-    .btn-glow { 
-        background: var(--primary); color: white; border: none; padding: 15px;
-        border-radius: 12px; cursor: pointer; width: 100%; font-weight: bold;
-    }
-</style>  
 </head>
 <body>
 
